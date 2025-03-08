@@ -63,31 +63,31 @@ if uploaded_files:
     
 
         #data visualization
-                            st.subheader("Data Visulaization")
-                            if st.checkbox(f"Show visulaization for {file.name}"):
-                               st.bar_chart(df.select_dtypes(include='number').iloc[:, :2])
+        st.subheader("Data Visulaization")
+        if st.checkbox(f"Show visulaization for {file.name}"):
+          st.bar_chart(df.select_dtypes(include='number').iloc[:, :2])
 
         #Conversion Options
-                            st.subheader("Conversion Options")
-                            conversion_type =st.radio(f"Convert {file.name} to:", ["CVS" , "Excel"], key=file.name)
-                            if st.button(f"Convert{file.name}"):
-                                buffer = BytesIO()
-                                if conversion_types == "CVS": # type: ignore
-                                    df.to.csv(buffer, index=False)
-                                    file_name = file.name.replace(file_ext, ".csv")
-                                    mime_type = "text/csv"
+        st.subheader("Conversion Options")
+        conversion_type =st.radio(f"Convert {file.name} to:", ["CVS" , "Excel"], key=file.name)
+        if st.button(f"Convert{file.name}"):
+          buffer = BytesIO()
+        if conversion_types == "CVS": # type: ignore
+           df.to.csv(buffer, index=False)
+           file_name = file.name.replace(file_ext, ".csv")
+           mime_type = "text/csv"
 
-                                elif conversion_type == "Excel":
-                                    df.to_excel(buffer, index=False)
-                                    file_name = file.name.replace(file_ext, "xlsx")
-                                    mime_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                                    buffer.seek(0)
+        elif conversion_type == "Excel":
+            df.to_excel(buffer, index=False)
+            file_name = file.name.replace(file_ext, "xlsx")
+            mime_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            buffer.seek(0)
 
 
-                                st.download_button(
-                                    label=f"Download {file.name} as {conversion_type}",
-                                    data=buffer,
-                                    file_name=file_name,
-                                    mime=mime_type
-                                )                    
+        st.download_button(
+            label=f"Download {file.name} as {conversion_type}",
+            data=buffer,
+            file_name=file_name,
+            mime=mime_type
+            )                    
 st.success("All files processed successsfully!")
