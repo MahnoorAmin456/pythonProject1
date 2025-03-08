@@ -1,5 +1,5 @@
 import streamlit as st  # type: ignore
-import pandas as pd # type: ignore
+import pandas as pd  # type: ignore
 import os
 from io import BytesIO
 
@@ -60,19 +60,14 @@ if uploaded_files:
                             st.subheader("Select Columns to keep")
                             columns = st.multiselect(f"Choose columns for {file.name}", df.columns,default=df.columns)
                             df = df[columns]
+    
 
-
-                            #data visualization
+        #data visualization
                             st.subheader("Data Visulaization")
                             if st.checkbox(f"Show visulaization for {file.name}"):
-                                st.bar_chart(df.select_dtypes(include='number').iloc[:, :2])
+                               st.bar_chart(df.select_dtypes(include='number').iloc[:, :2])
 
-
-                                
-                                
-                             #Conversion Options
-
-
+        #Conversion Options
                             st.subheader("Conversion Options")
                             conversion_type =st.radio(f"Convert {file.name} to:", ["CVS" , "Excel"], key=file.name)
                             if st.button(f"Convert{file.name}"):
@@ -94,5 +89,5 @@ if uploaded_files:
                                     data=buffer,
                                     file_name=file_name,
                                     mime=mime_type
-                                )
+                                )                    
 st.success("All files processed successsfully!")
